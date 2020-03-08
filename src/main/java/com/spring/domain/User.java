@@ -1,130 +1,153 @@
 package com.spring.domain;
 
-import java.util.List;
+import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import com.sun.istack.NotNull;
 @Entity
-
+@Table(name = "user")
 public class User {
-	@Id
-	 
-	    @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
-	    @GenericGenerator(name = "native",strategy = "native")
-	//@NotNull(message = "is required")
-	@Min(value =0,message = "Value should be grater than 0")
-	private int id;
-	//@NotNull(message = "is Required")
-	@Pattern(regexp = "^[A-Z][a-z] {5}",message = "please enter 5 characters as alphabets")
-	private String name;
-	@Column(name="user_name")
-	//@NotNull(message = "is Required")
-	@Pattern(regexp = "^[A-Z][a-z] {5}",message = "please enter 5 characters as alphabets")
-	@Pattern(regexp = "",message="username and password already exist")
-	private String userName;
-	 @Column(name="password")
-	@Pattern(regexp = "",message="username and password already exist")
-	private String password;
-	 @Column(name=" DOB")
-	private String DOB;
-	 @Column(name="adhar_no")
-	private String adharNo;
-	 @Column(name=" mobile_no")
-	private String mobileNo;
-	 @Column(name="email")
-	private String email;
-	@OneToMany(mappedBy="user")
-	List<Account> account;
-	
-	public User(int id, String name, String userName, String password, String DOB, String adharNo, String mobileNo,
-			String email) {
-		this.id = id;
-		this.name = name;
-		this.userName = userName;
-		this.password = password;
-		this.DOB = DOB;
-		this.adharNo = adharNo;
-		this.mobileNo = mobileNo;
-		this.email = email;
+    @Id
+@GeneratedValue(strategy = GenerationType.AUTO)
+private int id;
+@Column(name = "name")
+private String name;
+@Column(name = "user_name")
+private String userName;
+@Column(name = "password")
+private String password;
+@Column(name = "DOB")
+private Date DOB;
+@Column(name = "adhar_no")
+private String adharNo;
+@Column(name = "mobile_no")
+private String mobileNo;
+@Column(name = "email")
+private String email;
+@OneToMany(mappedBy = "user")
+private Set<Account> accounts;
+@OneToOne(cascade = CascadeType.ALL)
+@JoinColumn(name = "address_id")
+private Address address;
+@OneToOne(cascade = CascadeType.ALL)
+@JoinColumn(name = "role_id")
+private Role role;
 
-	}
+public Role getRole() {
+return role;
+}
 
-	public User() {
-		// TODO Auto-generated constructor stub
-	}
+public void setRole(Role role) {
+this.role = role;
+}
 
-	public int getId() {
-		return id;
-	}
+public Set<Account> getAccounts() {
+return accounts;
+}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+public void setAccounts(Set<Account> accounts) {
+this.accounts = accounts;
+}
 
-	public String getName() {
-		return name;
-	}
+public Address getAddress() {
+return address;
+}
 
-	public void setName(String name) {
-		this.name = name;
-	}
+public void setAddress(Address address) {
+this.address = address;
+}
 
-	public String getUserName() {
-		return userName;
-	}
+public User() {
+super();
+// TODO Auto-generated constructor stub
+}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+public User(int id, String name, String userName, String password, Date DOB, String adharNo, String mobileNo,
+String email) {
+super();
+this.id = id;
+this.name = name;
+this.userName = userName;
+this.password = password;
+this.DOB = DOB;
+this.adharNo = adharNo;
+this.mobileNo = mobileNo;
+this.email = email;
+}
 
-	public String getPassword() {
-		return password;
-	}
+public int getId() {
+return id;
+}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+public void setId(int id) {
+this.id = id;
+}
 
-	public String getDOB() {
-		return DOB;
-	}
+public String getName() {
+return name;
+}
 
-	public void setDOB(String dOB) {
-		DOB = dOB;
-	}
+public void setName(String name) {
+this.name = name;
+}
 
-	public String getAdharNo() {
-		return adharNo;
-	}
+public String getUserName() {
+return userName;
+}
 
-	public void setAdharNo(String adharNo) {
-		this.adharNo = adharNo;
-	}
+public void setUserName(String userName) {
+this.userName = userName;
+}
 
-	public String getMobileNo() {
-		return mobileNo;
-	}
+public String getPassword() {
+return password;
+}
 
-	public void setMobileNo(String mobileNo) {
-		this.mobileNo = mobileNo;
-	}
+public void setPassword(String password) {
+this.password = password;
+}
 
-	public String getEmail() {
-		return email;
-	}
+public Date getDOB() {
+return DOB;
+}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+public void setDOB(Date dOB) {
+DOB = dOB;
+}
+
+public String getAdharNo() {
+return adharNo;
+}
+
+public void setAdharNo(String adharNo) {
+this.adharNo = adharNo;
+}
+
+public String getMobileNo() {
+return mobileNo;
+}
+
+public void setMobileNo(String mobileNo) {
+this.mobileNo = mobileNo;
+}
+
+public String getEmail() {
+return email;
+}
+
+public void setEmail(String email) {
+this.email = email;
+}
 
 }

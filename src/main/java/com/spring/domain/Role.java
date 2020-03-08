@@ -16,43 +16,66 @@ import com.sun.istack.NotNull;
 
 
 
-@Entity
-public class Role {
-	@Id
-	//@NotNull(message="Is required")
-	@Min(value =0,message = "Value should be grater than 0")
-	@GeneratedValue(strategy= GenerationType.AUTO,generator="native")
-    @GenericGenerator(name = "native",strategy = "native")
-	private int id;
-	@SuppressWarnings("deprecation")
-	//@NotNull(message="Is Required")
-	@Pattern(regexp = "^[A-Z][a-z] {5}",message = "please enter 5 characters as alphabets")
-	private String name;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-public Role(int id,String name) {
-    this.id=id;
-	this.name=name;
+@Entity
+@Table(name = "role")
+public class Role {
+    @Id
+@GeneratedValue(strategy = GenerationType.AUTO)
+
+private int id;
+@Column(name = "name")
+private String name;
+/*@OneToOne(cascade = CascadeType.ALL)
+@JoinColumn(name = "role_id")
+private User user;
+
+public User getUser() {
+return user;
+}
+
+public void setUser(User user) {
+this.user = user;
+}
+*/
+public Role() {
+super();
+
+}
+
+public Role(int id, String name) {
+super();
+this.id = id;
+this.name = name;
+
 }
 
 public int getId() {
-	return id;
+return id;
 }
 
 public void setId(int id) {
-	this.id = id;
+this.id = id;
 }
 
 public String getName() {
-	return name;
+return name;
 }
 
 public void setName(String name) {
-	this.name = name;
+this.name = name;
 }
 
-public Role() {
-	
 }
-}
-	
+
+
 

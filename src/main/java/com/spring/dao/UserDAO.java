@@ -13,12 +13,19 @@ import org.springframework.stereotype.Repository;
 import com.spring.domain.Account;
 import com.spring.domain.User;
 @Transactional
-
 @Repository
 public class UserDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
 	public List<Account> getAccountList() {									
 		Session session = sessionFactory.openSession();

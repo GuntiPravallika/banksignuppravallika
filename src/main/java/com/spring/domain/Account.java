@@ -1,112 +1,127 @@
 package com.spring.domain;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
-import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.Table;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "account")
+
 public class Account {
-	@Id
+    @Id
+@GeneratedValue(strategy = GenerationType.AUTO)
+private Integer id;
+@Column(name = "account_no")
+private String accountNo;
+@Column(name = "security_number")
+private String securityNumber;
+@Column(name = "account_type")
+private String accountType;
+@Column(name = "created_date")
+private Date Created;
+@Column(name = "balance")
+private Double balance;
+@Column(name = "interest_per_month")
+private Integer interestPerMonth;
+@ManyToOne(fetch = FetchType.EAGER)
+@JoinColumn(name="user_id")
+private User user;
 
-    @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
-    //@GenericGenerator(name = "native",strategy = "native")
-	@Column(name="id")
-	public int id;
-	
-	 @NotNull(message="username and password already exist")
-	@Column(name="account_no")
-	private String accountNo; 
-	@Column(name="securityNumber")
-	private String securityNumber;
-	@Column(name="account_type")
-	private String accountType;
-	@Column(name="balance")
-	private Double balance;
-	@Column(name="interest_per_month")
-	private int interestPerMonth;
-	@Column(name="id")
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
+public Account() {
+super();
+// TODO Auto-generated constructor stub
+}
 
-	public Account(int id, String accountNo, String securityNumber, String accountType, Double balance,
-			int interestPerMonth, User user) {
-		this.id = id;
-		this.accountNo = accountNo;
-		this.securityNumber = securityNumber;
-		this.accountType = accountType;
-		this.balance = balance;
-		this.interestPerMonth = interestPerMonth;
-		this.user = user;
-	}
+public Account(Integer id, String accountNo, String securityNumber, String accountType, Date created,
+Double balance, Integer interestPerMonth, User user) {
+super();
+this.id = id;
+this.accountNo = accountNo;
+this.securityNumber = securityNumber;
+this.accountType = accountType;
+Created = created;
+this.balance = balance;
+this.interestPerMonth = interestPerMonth;
+this.user = user;
+}
 
-	public Account() {
-		// TODO Auto-generated constructor stub
-	}
+public Integer getId() {
+return id;
+}
 
-	public int getId() {
-		return id;
-	}
+public void setId(Integer id) {
+this.id = id;
+}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+public String getAccountNo() {
+return accountNo;
+}
 
-	public String getAccountNo() {
-		return accountNo;
-	}
+public void setAccountNo(String accountNo) {
+this.accountNo = accountNo;
+}
 
-	public void setAccountNo(String accountNo) {
-		this.accountNo = accountNo;
-	}
+public String getSecurityNumber() {
+return securityNumber;
+}
 
-	public String getSecurityNumber() {
-		return securityNumber;
-	}
+public void setSecurityNumber(String securityNumber) {
+this.securityNumber = securityNumber;
+}
 
-	public void setSecurityNumber(String securityNumber) {
-		this.securityNumber = securityNumber;
-	}
+public String getAccountType() {
+return accountType;
+}
 
-	public String getAccountType() {
-		return accountType;
-	}
+public void setAccountType(String accountType) {
+this.accountType = accountType;
+}
 
-	public void setAccountType(String accountType) {
-		this.accountType = accountType;
-	}
+public Date getCreated() {
+return Created;
+}
 
-	public Double getBalance() {
-		return balance;
-	}
+public void setCreated(Date created) {
+Created = created;
+}
 
-	public void setBalance(Double balance) {
-		this.balance = balance;
-	}
+public Double getBalance() {
+return balance;
+}
 
-	public int getInterestPerMonth() {
-		return interestPerMonth;
-	}
+public void setBalance(Double balance) {
+this.balance = balance;
+}
 
-	public void setInterestPerMonth(int interestPerMonth) {
-		this.interestPerMonth = interestPerMonth;
-	}
+public Integer getInterestPerMonth() {
+return interestPerMonth;
+}
 
-	public User getUser() {
-		return user;
-	}
+public void setInterestPerMonth(Integer interestPerMonth) {
+this.interestPerMonth = interestPerMonth;
+}
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+public User getUser() {
+return user;
+}
+
+public void setUser(User user) {
+this.user = user;
+}
 
 }
+
+
+
+
